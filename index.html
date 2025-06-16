@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Quote Widget Test</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>API Quote Widget Test</h1>
+  <div id="daily-quote" class="quote-box">
+    Loading quote...
+  </div>
+
+  <script>
+    fetch('https://favqs.com/api/qotd')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('daily-quote').innerHTML =
+          `"${data.quote.body}"<br><span>— ${data.quote.author}</span>`;
+      })
+      .catch(error => {
+        console.error('Error fetching quote:', error);
+        document.getElementById('daily-quote').innerText = "Could not load quote today.";
+      });
+  </script>
+</body>
+</html>
