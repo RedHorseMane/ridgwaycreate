@@ -24,5 +24,22 @@
         document.getElementById('daily-quote').innerText = "Could not load quote today.";
       });
   </script>
+  <h1>API Activity Widget Test</h1>
+  <div id="daily-quote" class="quote-box">
+    Loading activity...
+  </div>
+
+  <script>
+    fetch('https://www.boredapi.com/api/activity')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('daily-quote').innerHTML =
+          `"${data.activity}"<br><span style="font-size: smaller; color: #666;">Type: ${data.type}</span>`;
+      })
+      .catch(error => {
+        console.error('Error fetching activity:', error);
+        document.getElementById('daily-quote').innerText = "Could not load activity today.";
+      });
+  </script>
 </body>
 </html>
