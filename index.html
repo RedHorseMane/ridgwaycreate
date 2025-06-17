@@ -8,37 +8,31 @@
 </head>
 <body>
   <h1>API Quote Widget Test</h1>
-  <div id="daily-quote" class="quote-box">
-    Loading quote...
-  </div>
+  <div id="quote-box">Loading quote...</div>
 
+<script>
+fetch('https://bradyridgway.pythonanywhere.com/api/quote/')
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById('quote-box').innerHTML =
+      `"${data.quote.body}"<br><span>— ${data.quote.author}</span>`;
+  })
+  .catch(error => {
+    console.error('Error fetching quote:', error);
+    document.getElementById('quote-box').innerText = "Could not load quote.";
+  });
+</script>
+  <h1>Advice of the Moment</h1>
+  <div id="result">Loading...</div>
   <script>
-    fetch('https://favqs.com/api/qotd')
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('daily-quote').innerHTML =
-          `"${data.quote.body}"<br><span>— ${data.quote.author}</span>`;
+    fetch('https://api.adviceslip.com/advice')
+      .then(r => r.json())
+      .then(d => {
+        document.getElementById('result').innerText = d.slip.advice;
       })
-      .catch(error => {
-        console.error('Error fetching quote:', error);
-        document.getElementById('daily-quote').innerText = "Could not load quote today.";
-      });
-  </script>
-  <h1>API Activity Widget Test</h1>
-  <div id="daily-quote" class="quote-box">
-    Loading activity...
-  </div>
-
-  <script>
-    fetch('https://www.boredapi.com/api/activity')
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('daily-quote').innerHTML =
-          `"${data.activity}"<br><span style="font-size: smaller; color: #666;">Type: ${data.type}</span>`;
-      })
-      .catch(error => {
-        console.error('Error fetching activity:', error);
-        document.getElementById('daily-quote').innerText = "Could not load activity today.";
+      .catch(e => {
+        console.error('Error:', e);
+        document.getElementById('result').innerText = "Failed to load advice.";
       });
   </script>
 </body>
