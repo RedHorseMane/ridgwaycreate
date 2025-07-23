@@ -1,0 +1,29 @@
+# robots.txt for https://ridgwaycreative.com/
+# Generated 2025‑07‑23 — update as your structure changes
+
+# ──────────────────────────────────────────────
+# Default: allow all well‑behaved bots to crawl everything
+# ──────────────────────────────────────────────
+User-agent: *
+Allow: /
+
+# ──────────────────────────────────────────────
+# Keep non‑public or temporary folders out of search results
+# ──────────────────────────────────────────────
+Disallow: /cgi-bin/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /templates/
+
+
+# ──────────────────────────────────────────────
+# Throttle Bing’s bingbot to reduce load (Google ignores Crawl‑delay)
+# ──────────────────────────────────────────────
+User-agent: bingbot
+Crawl-delay: 10
+
+# ──────────────────────────────────────────────
+# Sitemap location
+# ──────────────────────────────────────────────
+# Sitemap: https://ridgwaycreative.com/sitemap.xml
+
