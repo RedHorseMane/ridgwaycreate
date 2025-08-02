@@ -313,7 +313,25 @@ tarteaucitron.user.gtagUa = 'G-7PDHVQWB2H';
       <!-- Load TarteAuCitron FIRST -->
    <script src="tarteaucitron/tarteaucitron.js"></script>
    <script src="js/tarteaucitron.js"></script>
-
+  <script type="text/javascript">
+    tarteaucitron.init({
+        "privacyUrl": "", /* Privacy policy url */
+        "bodyPosition": "bottom", /* or "top" */
+        "cookieslist": true, /* Show the cookie list */
+        "showIcon": true, /* Show cookie icon to manage cookies */
+        "iconPosition": "BottomRight", /* BottomRight, BottomLeft, TopRight, TopLeft */
+        "adblocker": false, /* Show a Warning if an adblocker is detected */
+        "AcceptAllCta" : true, /* Show the accept all button when not all have been accepted */
+        "highPrivacy": true, /* High privacy setting to disable auto consent */
+        "handleBrowserDNTRequest": false, /* If Do Not Track == 1, no cookies */
+        "removeCredit": false, /* Remove credit link */
+        "moreInfoLink": true, /* Show more info link */
+        "use(Iframe)s": true, /* If you use iframe */
+        "eventListener" : "js", /* Event to display the footer/popin after a few seconds */
+        "DenyAllCta" : true, /* Show deny all button */
+        "AcceptAllCta" : true, /* Show accept all button when all have been accepted */
+    });
+</script>
     <footer class="footer">
         <div class="container">
             <div class="footer-links">
