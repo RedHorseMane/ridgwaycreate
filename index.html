@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
+<!-- Google tag (gtag.js)
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7PDHVQWB2H"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -9,8 +9,13 @@
   gtag('js', new Date());
 
   gtag('config', 'G-7PDHVQWB2H');
+</script>  -->
+<script>
+tarteaucitron.user.gtagUa = 'G-7PDHVQWB2H';
+// tarteaucitron.user.gtagCrossdomain = ['example.com', 'example2.com'];
+ tarteaucitron.user.gtagMore = function () { /* add here your optionnal gtag() */ };
+(tarteaucitron.job = tarteaucitron.job || []).push('gtag');
 </script>
-
     <!-- Favicon links -->
     <link rel="icon" href="static/icons/favicon.ico" type="image/x-icon">
     <link rel="icon" type="image/png" sizes="32x32" href="static/icons/favicon-32x32.png">
@@ -305,6 +310,9 @@
             </div>
         </div>
     </main>
+      <!-- Load TarteAuCitron FIRST -->
+   <script src="tarteaucitron/tarteaucitron.js"></script>
+   <script src="js/tarteaucitron.js"></script>
 
     <footer class="footer">
         <div class="container">
