@@ -140,8 +140,75 @@
   ]
 }
 </script>
-    
-   
+ <!-- Include Klaro from the CDN -->
+<script defer src="https://cdn.kiprotect.com/klaro/latest/klaro.js"></script>
+
+<!-- Klaro Configuration -->
+<script>
+  var klaroConfig = {
+    version: 1,
+    elementID: 'klaro',
+    noAutoLoad: false,
+    htmlTexts: true,
+    embedded: false,
+    storageMethod: 'cookie',
+    cookieName: 'klaro-consent',
+    cookieExpiresAfterDays: 365,
+    default: false,
+    mustConsent: true,
+    acceptAll: true,
+    hideDeclineAll: false,
+    lang: 'en',
+    translations: {
+      en: {
+        privacyPolicyUrl: '/privacy.html',
+        consentModal: {
+          title: 'Privacy Preferences',
+          description: 'We use cookies to optimize our website and services.',
+        },
+        purposes: {
+          analytics: 'Analytics',
+          marketing: 'Marketing',
+        },
+        services: {
+          googleAnalytics: {
+            description: 'Google Analytics for measuring site performance.',
+          },
+        },
+      },
+    },
+    services: [
+      {
+          name: 'googleAnalytics',
+          title: 'Google Analytics',
+          purposes: ['analytics'],
+          cookies: ['_ga', '_gid', '_gat'],
+          required: false,
+          default: false,
+          onlyOnce: true,
+          callback: function(consent, service) {
+            if (consent) {
+              const ga_id = 'G-7PDHVQWB2H'; // Your GA4 ID
+
+              const script1 = document.createElement('script');
+              script1.setAttribute('async', '');
+              script1.src = `https://www.googletagmanager.com/gtag/js?id=${ga_id}`;
+              document.head.appendChild(script1);
+
+              const script2 = document.createElement('script');
+              script2.innerHTML = `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${ga_id}', { anonymize_ip: true });
+              `;
+              document.head.appendChild(script2);
+            }
+          }
+        }
+    ],
+  };
+</script>   
 </head>
 <body>
     <header class="hero">
@@ -295,36 +362,6 @@
             </div>
         </div>
     </main>
-      <!-- Load TarteAuCitron FIRST -->
-   <script src="tarteaucitron/tarteaucitron.js"></script>
-   <script src="js/tarteaucitron.js"></script>
-<script>
-tarteaucitron.user.gtagUa = 'G-7PDHVQWB2H';
-// tarteaucitron.user.gtagCrossdomain = ['example.com', 'example2.com'];
- tarteaucitron.user.gtagMore = function () { /* add here your optionnal gtag() */ };
-(tarteaucitron.job = tarteaucitron.job || []).push('gtag');
-</script>
-<script src="tarteaucitron/tarteaucitron.js"></script>
-
-<script type="text/javascript">
-    tarteaucitron.init({
-        "privacyUrl": "privacy.html", /* Your privacy policy URL */
-        "bodyPosition": "bottom",
-        "cookieslist": true,
-        "showIcon": true,
-        "iconPosition": "BottomRight",
-        "adblocker": false,
-        "AcceptAllCta" : true,
-        "highPrivacy": true,
-        "handleBrowserDNTRequest": false,
-        "removeCredit": false,
-        "moreInfoLink": true,
-        "useIframe": true,
-        "eventListener" : "js",
-        "DenyAllCta" : true
-    });
-</script>
-
     <footer class="footer">
         <div class="container">
             <div class="footer-links">
