@@ -140,77 +140,107 @@
   ]
 }
 </script>
- <!-- Include Klaro from the CDN -->
-<script defer src="https://cdn.kiprotect.com/klaro/latest/klaro.js"></script>
+ <script defer src="https://cdn.kiprotect.com/klaro/latest/klaro.js"></script>
 
-<!-- Klaro Configuration -->
 <script>
-  var klaroConfig = {
+var klaroConfig = {
     version: 1,
     elementID: 'klaro',
-    noAutoLoad: false,
     htmlTexts: true,
     embedded: false,
     storageMethod: 'cookie',
     cookieName: 'klaro-consent',
     cookieExpiresAfterDays: 365,
     default: false,
-    mustConsent: true,
+    mustConsent: true, // Set to false initially for testing
     acceptAll: true,
     hideDeclineAll: false,
+    noAutoLoad: false,
     lang: 'en',
+    
     translations: {
-      en: {
-        privacyPolicyUrl: '/privacy.html',
-        consentModal: {
-          title: 'Privacy Preferences',
-          description: 'We use cookies to optimize our website and services.',
-        },
-        purposes: {
-          analytics: 'Analytics',
-          marketing: 'Marketing',
-        },
-        services: {
-          googleAnalytics: {
-            description: 'Google Analytics for measuring site performance.',
-          },
-        },
-      },
-    },
-    services: [
-      {
-          name: 'googleAnalytics',
-          title: 'Google Analytics',
-          purposes: ['analytics'],
-          cookies: ['_ga', '_gid', '_gat'],
-          required: false,
-          default: false,
-          onlyOnce: true,
-          callback: function(consent, service) {
-            if (consent) {
-              const ga_id = 'G-7PDHVQWB2H'; // Your GA4 ID
-
-              const script1 = document.createElement('script');
-              script1.setAttribute('async', '');
-              script1.src = `https://www.googletagmanager.com/gtag/js?id=${ga_id}`;
-              document.head.appendChild(script1);
-
-              const script2 = document.createElement('script');
-              script2.innerHTML = `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${ga_id}', { anonymize_ip: true });
-              `;
-              document.head.appendChild(script2);
+        en: {
+            consentModal: {
+                title: 'Privacy Preferences',
+                description: 'We use cookies to improve functionality and measure performance.',
+                privacyPolicy: {
+                    name: 'privacy policy',
+                    text: 'To learn more, please read our {privacyPolicy}.'
+                }
+            },
+            privacyPolicyUrl: '/docs/privacy.html',
+            acceptAll: 'Accept all',
+            acceptSelected: 'Accept selected',
+            decline: 'Decline all',
+            service: {
+                purposes: {
+                    analytics: 'Analytics'
+                },
+                googleAnalytics: {
+                    description: 'Collection of visitor statistics via Google Analytics.'
+                }
             }
-          }
+        },
+        fr: {
+            consentModal: {
+                title: 'Préférences de confidentialité',
+                description: 'Nous utilisons des cookies pour améliorer les fonctionnalités et mesurer l\'audience.'
+            },
+            privacyPolicyUrl: '/docs/confidentialite.html',
+            acceptAll: 'Accepter tout',
+            acceptSelected: 'Accepter la sélection',
+            decline: 'Tout refuser',
+            service: {
+                purposes: {
+                    analytics: 'Analyse'
+                },
+                googleAnalytics: {
+                    description: 'Statistiques anonymes avec Google Analytics.'
+                }
+            }
         }
-    ],
-  };
-</script>   
+    },
+    
+    services: [
+        {
+            name: 'googleAnalytics',
+            title: 'Google Analytics',
+            purposes: ['analytics'],
+            cookies: [
+                /^_ga(_.*)?/,
+                '_gid',
+                '_gat'
+            ],
+            required: false,
+            default: false,
+            onlyOnce: true,
+            callback: function(consent, service) {
+                if (consent) {
+                    const ga_id = 'G-7PDHVQWB2H';
+                    const script1 = document.createElement('script');
+                    script1.async = true;
+                    script1.src = `https://www.googletagmanager.com/gtag/js?id=${ga_id}`;
+                    document.head.appendChild(script1);
+
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    window.gtag = gtag;
+                    gtag('js', new Date());
+                    gtag('config', ga_id, { anonymize_ip: true });
+                }
+            }
+        }
+    ]
+};
+</script>
+
 </head>
 <body>
+  <div id="klaro"></div>
+  <div style="text-align: right; margin-top: 1rem;">
+    <a href="docs/privacy.html" lang="en" hreflang="en" style="margin-right: 1em;">🇬🇧 English</a>
+    <a href="docs/confidentialite.html" lang="fr" hreflang="fr">🇫🇷 Français</a>
+  </div>
     <header class="hero">
         <div class="container">
             <div class="hero-content">
@@ -364,6 +394,11 @@
     </main>
     <footer class="footer">
         <div class="container">
+          <p style="text-align: center; font-size: 0.9em; margin-top: 2rem;">
+            <a href="docs/privacy.html" hreflang="en">Privacy Policy</a> |
+            <a href="docs/confidentialite.html" hreflang="fr">Politique de Confidentialité</a>
+          </p>
+   
             <div class="footer-links">
                 <a href="https://bradyridgway.com">Author Site</a>
                 <a href="https://williamwoodpecker.com">William Woodpecker</a>
