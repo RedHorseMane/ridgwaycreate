@@ -5,4 +5,4 @@ RewriteEngine On
 RewriteRule ^instagram/?$ https://ridgwaycreative.com/?utm_source=instagram&utm_medium=bio&utm_campaign=product_launch [R=301,L]
 
 # Redirect /Facebook to your full UTM-tracked URL
-RewriteRule ^Facebook/?$ https://ridgwaycreative.com/?utm_source=instagram&utm_medium=bio&utm_campaign=product_launch [R=301,L]
+RewriteRule ^facebook/?$ https://ridgwaycreative.com/?utm_source=facebook&utm_medium=bio&utm_campaign=product_launch [R=301,L]
